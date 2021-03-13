@@ -14,3 +14,12 @@ def home():
         f"/api/v1.0/<start/<end><br/>"
     )
     @app.route(/api/v1.0/precipitation)
+
+
+
+
+
+
+
+if __name__ == "__main__":
+app.run(debug=True)
