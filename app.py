@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
@@ -38,16 +39,20 @@ def home():
 #Define precipitation page
 @app.route("/api/v1.0/precipitation")
 def precipitation():
-    session= Sesion(engine)
+    print("Precipitation Page opened.")
+    session= Session(engine)
     date_prec = session.query(Measurement.date, Measurement.prcp).\
-    filter(Measurement.date >= 2016, 8, 23).all()
+    filter(Measurement.date >= 2016-8-23).all()
     session.close()
-    date_prec_df = pd.DataFrame(date_prec)
-    date_prec_df = date_prec_df.sort_values(['date'])
-    return jsonify(date_prec_df)
+    return jsonify(date_prec)
 
-
-
+@app.route("/api/v1.0/stations")
+def stations():
+    print("Station Page Opened."
+    session= Session(engine)
+    total_stations = session.query(distinct(Station.station)).all()
+    session.close()
+    return jsonify(total_stations)
 
 
 if __name__ == "__main__":
