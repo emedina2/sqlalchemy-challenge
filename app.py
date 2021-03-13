@@ -61,7 +61,7 @@ def tobs():
     session = Session(engine)
     most_popular = "USC00519281"
     station_temp= session.query(Measurement.date, Measurement.tobs).\
-    filter(Measurement.date >= 2016-8-18).\
+    filter(Measurement.date >= "2016-08-18").\
     filter(Measurement.station == most_popular).all()
 
     return jsonify(station_temp)
