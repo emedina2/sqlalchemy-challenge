@@ -42,8 +42,7 @@ def home():
 def precipitation():
     print("Precipitation Page opened.")
     session= Session(engine)
-    date_prec = session.query(Measurement.date, Measurement.prcp).\
-    filter(Measurement.date >= 2016-8-23).all()
+    date_prec = session.query(Measurement.date, Measurement.prcp).all()
     session.close()
     return jsonify(date_prec)
 
