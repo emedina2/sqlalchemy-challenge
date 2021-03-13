@@ -3,7 +3,7 @@ import pandas as pd
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
-from sqlalchemy import create_engine, func
+from sqlalchemy import create_engine, func, distinct, desc
 
 from flask import Flask,jsonify
 #################################################
@@ -48,8 +48,8 @@ def precipitation():
 
 @app.route("/api/v1.0/stations")
 def stations():
-    print("Station Page Opened."
-    session= Session(engine)
+    print("Station Page Opened.")
+    session = Session(engine)
     total_stations = session.query(distinct(Station.station)).all()
     session.close()
     return jsonify(total_stations)
