@@ -61,7 +61,8 @@ def tobs():
     session = Session(engine)
     most_popular = "USC00519281"
     station_temp= session.query(Measurement.date, Measurement.tobs).\
-    filter(Measurement.date >= 2016-8-18).all()
+    filter(Measurement.date >= 2016-8-18).\
+    filter(Measurement.station == most_popular).all()
 
     return jsonify(station_temp)
 
@@ -93,9 +94,9 @@ def start_only (start):
         
 
 @app.route("/api/v1.0/<start>/<end>")
-def start_end(start, end)
+def start_end(start, end):
     print(f'Start date {start} and end date {end} entered.')
-    start_date = start_date
+    start_date = start
     end_date = end
     try:
         datetime.datetime.strptime(start_date, '%Y-%m-%d')
