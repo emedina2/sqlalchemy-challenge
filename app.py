@@ -80,11 +80,11 @@ def start_only (start):
     if correct_format == True:
         session = Session(engine)
         date_high = session.query(func.max(Measurement.tobs)).\
-            filter(Measurement.date == start_date).all()
+            filter(Measurement.date >= start_date).all()
         date_low = session.query(func.min(Measurement.tobs)).\
-            filter(Measurement.date == start_date).all()
+            filter(Measurement.date >= start_date).all()
         date_avg = session.query(func.avg(Measurement.tobs)).\
-            filter(Measurement.date == start_date).all()
+            filter(Measurement.date >= start_date).all()
         session.close()
         json_data = {"Date": start, "Max Temp": date_high[0], "Min Temp": date_low[0], "Avg Temp": date_avg[0]}
         return jsonify(json_data)
@@ -108,13 +108,13 @@ def start_end(start, end):
     if correct_format == True:
         session = Session(engine)
         date_high = session.query(func.max(Measurement.tobs)).\
-            filter(Measurement.date == start_date).all()
+            filter(Measurement.date.between(start_date, end_date)).all()
         date_low = session.query(func.min(Measurement.tobs)).\
-            filter(Measurement.date == start_date).all()
+            filter(Measurement.date.between(start_date, end_date)).all()
         date_avg = session.query(func.avg(Measurement.tobs)).\
-            filter(Measurement.date == start_date).all()
+            filter(Measurement.date.between(start_date, end_date)).all()
         session.close()
-        json_data = {"Date": start, "Max Temp": date_high[0], "Min Temp": date_low[0], "Avg Temp": date_avg[0]}
+        json_data = {"Start Date": start_date, "End Date": end_date, "Max Temp": date_high[0], "Min Temp": date_low[0], "Avg Temp": date_avg[0]}
         return jsonify(json_data)
     else:
         return "No data for Date Entered or invalid date foorat. Date must be in format YYYY-MM-DD and between "
